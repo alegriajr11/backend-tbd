@@ -1,4 +1,5 @@
 {
     "crearProducto": true,
-    "listarUsuarios": true
+    "listarUsuarios": true,
+    "crearUsuario": false
 }
