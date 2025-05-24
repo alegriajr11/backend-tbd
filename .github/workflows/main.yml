@@ -1,0 +1,44 @@
+name: Validacion Feature Flags
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-lastest
+
+    steps:
+    - name: Clonar Repositorio
+      uses: actions/checkout@v3
+
+    - name: Configurar node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Instalar dependencias
+      run: npm ci
+
+    - name: Validar formato de features.json
+      run: | 
+        echo "Validando feature.json..."
+        jq empty feature.json
+
+      shell: bash
+
+    - name: Ejecutar Pruebas
+      run: npm run test
+      continue-on-error: false
+
+
+    - name: Compilar Proyecto
+      run: npm run build
+      continue-on-error: false
+
+    - name: Validacion Completa
+      run: echo "Main esta funcionando correctamente"
+    
